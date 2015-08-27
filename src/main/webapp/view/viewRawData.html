@@ -1,0 +1,46 @@
+<div class="jumbotron text-center">
+    <p>{{ message }}</p>
+    <table border="1">
+       <tr>
+          <th>Start Date</th>
+          <th>End Date</th>
+          <th>Fund Id</th>
+          <th>Fund Name</th>
+          <th>Fund Currency</th>
+          <th>Category Type</th>
+          <th>Account No</th>
+          <th>Account Segment 1</th>
+          <th>Account Segment 2</th>
+          <th>Account Name</th>
+          <th>Opening Balance</th>
+          <th>DR</th>
+          <th>CR</th>
+          <th>Closing Balance</th>
+          <th>Create Timestamp</th>
+          <th>Process  Status Code</th>
+          <th>Source System Name</th>
+          <th>Process Type</th>
+          <th></th>
+      </tr>
+      <tr  ng-repeat="data in rawData">
+          <td>{{data.startDate}}</td>
+          <td>{{data.endDate}}</td>
+          <td>{{data.fundID}}</td>
+          <td>{{data.fundName}}</td>
+          <td>{{data.fundCurrency}}</td>
+          <td>{{data.categorytype}}</td>
+          <td>{{data.accountNumber}}</td>
+          <td>{{data.accountSegment_1}}</td>
+          <td>{{data.accountSegment_2}}</td>
+          <td>{{data.accountName}}</td>
+          <td>{{data.openingBalance}}</td>
+          <td>{{data.dR}}</td>
+          <td>{{data.cR}}</td>
+          <td>{{data.closingBalance}}</td>
+          <td>{{data.createTimeStamp}}</td>
+          <td>{{data.processStatusCode}}</td>
+          <td>{{data.sourceSystemName}}</td>
+          <td>{{data.processType}}</td>
+      </tr>
+    </table>
+</div>
