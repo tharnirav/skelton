@@ -1,7 +1,7 @@
 package com.skelton.cc.services.impl;
 
 import com.skelton.cc.domain.InvestAIBalance;
-import com.skelton.cc.repositories.InvestAIBalanceRepo;
+import com.skelton.cc.repositories.InvestAIBalanceDao;
 import com.skelton.cc.services.FileReaderService;
 import com.skelton.cc.services.InvestAIBalanceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,21 +16,18 @@ public class InvestAIBalanceServiceImpl implements InvestAIBalanceService {
     private FileReaderService fileReaderService;
 
     @Autowired
-    private InvestAIBalanceRepo investAIBalanceRepo;
+    private InvestAIBalanceDao investAIBalanceDao;
 
     @Override
     public boolean insertData() {
         List<InvestAIBalance> balanceList = fileReaderService.readInvestAIBalanceCsv();
-
-        boolean result = investAIBalanceRepo.insertData(balanceList);
-
-        return result;
+        investAIBalanceDao.saveAll(balanceList);
+        return true;
     }
 
     @Override
     public List<InvestAIBalance> readData() {
-        List<InvestAIBalance> investAIBalanceList = investAIBalanceRepo.readInvestAIBalanceCsv();
-
+        List<InvestAIBalance> investAIBalanceList = investAIBalanceDao.findAll();
         return investAIBalanceList;
     }
 

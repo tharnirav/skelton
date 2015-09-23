@@ -13,7 +13,7 @@ import javax.persistence.PersistenceContext;
 /**
  * Created by nthar on 9/3/2015.
  */
-public class GenericDAO<T, PK> {
+public class GenericDAO<T, PK> implements Dao<T,PK> {
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -25,31 +25,45 @@ public class GenericDAO<T, PK> {
         this.entityManager = entityManager;
     }
 
+    @Override
     public T getById(PK pk) {
         return (T) entityManager.find(getTypeClass(), pk);
     }
 
+    @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void save(T entity) {
         entityManager.persist(entity);
     }
 
+    @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    public void saveAll(List<T> entityList) {
+        for(T entity : entityList) {
+            entityManager.persist(entity);
+        }
+    }
+
+    @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void update(T entity) {
         entityManager.merge(entity);
     }
 
+    @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void delete(T entity) {
         entityManager.remove(entity);
     }
 
+    @Override
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void deleteAll(T entity) {
         entityManager.remove(entity);
     }
 
 
+    @Override
     public List<T> findAll() {
         return entityManager.createQuery(("FROM " + getTypeClass().getName()))
                 .getResultList();
@@ -57,7 +71,7 @@ public class GenericDAO<T, PK> {
 
     private Class<?> getTypeClass() {
         Class<?> clazz = (Class<?>) ((ParameterizedType) this.getClass()
-                .getGenericSuperclass()).getActualTypeArguments()[1];
+                .getGenericSuperclass()).getActualTypeArguments()[0];
         return clazz;
     }
 }

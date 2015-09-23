@@ -1,11 +1,17 @@
 package com.skelton.cc.rest;
 
-import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.WebResource;
-import com.sun.jersey.test.framework.JerseyTest;
-import com.sun.jersey.test.framework.WebAppDescriptor;
+
+import org.glassfish.jersey.client.ClientResponse;
+import org.glassfish.jersey.server.ResourceConfig;
 import org.junit.Assert;
 import org.junit.Test;
+
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.Invocation;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.Response;
+
+import static junit.framework.TestCase.assertEquals;
 
 
 public class HealthControllerTest  extends BaseJerseyTest {
@@ -14,6 +20,10 @@ public class HealthControllerTest  extends BaseJerseyTest {
         super();
     }
 
+    @Override
+    public ResourceConfig getResourceConfig() {
+        return new ResourceConfig(HealthController.class);
+    }
 
 
     /**
@@ -22,20 +32,12 @@ public class HealthControllerTest  extends BaseJerseyTest {
      */
     @Test
     public void testHelloWorld() throws Exception {
-        WebResource webResource = resource().path("status");
-        ClientResponse clientResponse = webResource.head();
-        String responseMsg = webResource.get(String.class);
-        Assert.assertEquals("Application is running", responseMsg);
-        assertHttpStatus(ClientResponse.Status.OK, clientResponse);
+        WebTarget target = target("/health/status");
+        final Response response = target("/health/status").request("application/json").get();
+        String responseStr = target.request().get(String.class);
+        Assert.assertEquals("Application is running", responseStr);
+        assertEquals(200, response.getStatus());
     }
 
-//    @Test
-//    public void helloWorld() throws Exception {
-//        mockMvc.perform(get("/status").accept(MediaType.APPLICATION_JSON))
-//                .andDo(print()) // print the request/response in the console
-//                .andExpect(status().isOk())
-//                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(content().string("Application is running"));
-//    }
 
 }

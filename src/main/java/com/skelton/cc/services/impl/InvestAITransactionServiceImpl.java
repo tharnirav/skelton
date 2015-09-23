@@ -1,7 +1,7 @@
 package com.skelton.cc.services.impl;
 
 import com.skelton.cc.domain.InvestAITransaction;
-import com.skelton.cc.repositories.InvestAITransactionRepo;
+import com.skelton.cc.repositories.InvestAITransactionDao;
 import com.skelton.cc.services.FileReaderService;
 import com.skelton.cc.services.InvestAITransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,24 +16,18 @@ public class InvestAITransactionServiceImpl implements InvestAITransactionServic
     private FileReaderService fileReaderService;
 
     @Autowired
-    private InvestAITransactionRepo investAITransactionRepo;
+    private InvestAITransactionDao investAITransactionDao;
 
     @Override
     public boolean insertData() {
-        // TODO Auto-generated method stub
-
         List<InvestAITransaction> transactionList = fileReaderService.readInvestAITransactionCsv();
-
-        boolean result = investAITransactionRepo.insertData(transactionList);
-
-        return result;
+        investAITransactionDao.saveAll(transactionList);
+        return true;
     }
 
     @Override
     public List<InvestAITransaction> readData() {
-
-        List<InvestAITransaction> investAITransactionList = investAITransactionRepo.readInvestAITransactionCsv();
-
+        List<InvestAITransaction> investAITransactionList = investAITransactionDao.findAll();
         return investAITransactionList;
     }
 }

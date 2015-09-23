@@ -1,6 +1,7 @@
 package com.skelton.cc.repositories;
 
 import com.skelton.cc.domain.InvestAITransaction;
+import com.skelton.cc.repositories.jpa.InvestAITransactionJpaDao;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,7 +21,7 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("classpath:spring/application-config.xml")
-public class InvestAITransactionRepoTest {
+public class InvestAITransactionJpaDaoTest {
 
     private DateFormat df = new SimpleDateFormat("MM/dd/yyyy");
 
@@ -29,7 +30,7 @@ public class InvestAITransactionRepoTest {
     private List<InvestAITransaction> investAITransactionList;
 
     @Autowired
-    InvestAITransactionRepo investAITransactionRepo;
+    InvestAITransactionJpaDao investAITransactionDao;
 
     @Before
     public void setUp() throws ParseException {
@@ -65,10 +66,10 @@ public class InvestAITransactionRepoTest {
     @Test
     public void testInsertReadAndTruncateTransactionObject() {
 
-        investAITransactionRepo.insertData(transaction);
+        investAITransactionDao.save(transaction);
 
         List<InvestAITransaction> expectedTransactionList;
-        expectedTransactionList = investAITransactionRepo.readInvestAITransactionCsv();
+        expectedTransactionList = investAITransactionDao.findAll();
 
         assertEquals(investAITransactionList.size(), expectedTransactionList.size());
 
@@ -78,10 +79,10 @@ public class InvestAITransactionRepoTest {
     @Test
     public void testInsertReadAndTruncateTransactionList() {
 
-        investAITransactionRepo.insertData(investAITransactionList);
+        investAITransactionDao.saveAll(investAITransactionList);
 
         List<InvestAITransaction> expectedTransactionList;
-        expectedTransactionList = investAITransactionRepo.readInvestAITransactionCsv();
+        expectedTransactionList = investAITransactionDao.findAll();
 
         assertEquals(investAITransactionList.size(), expectedTransactionList.size());
 

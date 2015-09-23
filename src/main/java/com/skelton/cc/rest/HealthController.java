@@ -13,7 +13,7 @@ import javax.ws.rs.core.Response;
  */
 
 @Component
-@Path("/")
+@Path("/health")
 public class HealthController {
 
     @GET
