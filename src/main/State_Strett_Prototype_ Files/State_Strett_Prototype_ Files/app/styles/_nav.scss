@@ -1,0 +1,24 @@
+.header-brand{
+	color: $white;
+	background-color: $header-color;
+	@include background-image('state-street-logo');
+  	padding:0px 15px 0px 15px;
+	display: block;
+	height: 50px;
+	font-size: 20px;
+	margin-bottom:10px;
+	background-size: contain;
+  	background-position: -1px 0px;
+
+	&:hover,&:visited,&:active{ 
+		text-decoration:none;
+		color:$white;
+	}
+
+}
+nav{
+	width: 98%;
+  	margin: auto;
+}
+
+

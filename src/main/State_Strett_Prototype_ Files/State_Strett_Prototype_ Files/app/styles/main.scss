@@ -1,0 +1,47 @@
+//Config
+@import "variable";
+
+//foundation
+@import "../../bower_components/foundation/scss/foundation.scss";
+
+
+// Logo Image
+$image-path: '../../images/company-logo' ;
+$extention: 'jpg'; // need to change
+
+//Mixins
+@import "mixins";
+
+//Nav
+@import "nav";
+
+//Foundation setting
+@import "foundation_setting";
+
+/* 
+  Allow angular.js to be loaded in body, hiding cloaked elements until 
+  templates compile.  The !important is important given that there may be 
+  other selectors that are more specific or come later and might alter display.  
+ */
+[ng\:cloak], [ng-cloak], .ng-cloak {
+  display: none !important;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+}
+
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}
+
+
+
+
+

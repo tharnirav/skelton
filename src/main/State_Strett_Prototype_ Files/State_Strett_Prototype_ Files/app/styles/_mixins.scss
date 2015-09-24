@@ -1,0 +1,4 @@
+@mixin background-image($name){
+    background-image: url(#{$image-path}/#{$name}.#{$extention});
+    background-repeat: no-repeat;
+}
