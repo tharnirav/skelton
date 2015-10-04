@@ -30,7 +30,7 @@ public class InvestAIBalance {
 
 
     @SuppressWarnings("unused")
-    private InvestAIBalance() {
+    public InvestAIBalance() {
 
     }
 
